@@ -100,18 +100,15 @@
   const yesBtn = document.getElementById("yesBtn");
   const tease = document.getElementById("tease");
   const card = document.getElementById("card");
-  const sound = document.getElementById("escapeSound");
 
   const isMobile = window.matchMedia("(pointer: coarse)").matches;
 
-  let yesScale = 1;
-
   const teaseTexts = [
     "Nice try 😜",
-    "Absolutely not 😏",
-    "You’re persistent 😂",
-    "Still no 😌",
-    "Just press YES already 💖"
+    "Nope 😏",
+    "Almost 😂",
+    "Try again 💨",
+    "You’re funny 😌"
   ];
 
   function moveNoButton() {
@@ -134,18 +131,9 @@
     tease.textContent =
       teaseTexts[Math.floor(Math.random() * teaseTexts.length)];
 
-    // Sound
-    sound.currentTime = 0;
-    sound.play();
-
-    // Vibrate (mobile only)
     if (navigator.vibrate) {
-      navigator.vibrate(80);
+      navigator.vibrate(60);
     }
-
-    // Make YES bigger 😈
-    yesScale += 0.08;
-    yesBtn.style.transform = `scale(${yesScale})`;
   }
 
   function createHeart() {
@@ -153,21 +141,22 @@
     heart.className = "heart";
     heart.textContent = "💖";
     heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = 20 + Math.random() * 20 + "px";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 4000);
   }
 
   if (isMobile) {
-    // Runs away before they tap
     noBtn.addEventListener("pointerdown", moveNoButton);
-    noBtn.addEventListener("touchmove", moveNoButton);
   }
 
   yesBtn.addEventListener("click", () => {
     card.innerHTML = `
-      <h1>Yay!!! 💕🥰</h1>
-      <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" />
+      <h1>Yay!! 💕🥰</h1>
+      <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Happy dancing" />
     `;
-    setInterval(createHeart, 250);
+
+    // HEART SHOWER 🌧️💖
+    setInterval(createHeart, 150);
   });
 </script>
